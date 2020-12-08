@@ -1,0 +1,52 @@
+composer.phar
+composer.lock
+
+vendor/
+extensions/
+node_modules/
+
+!.*
+.idea/
+
+.DS_Store
+
+.eslintcache
+
+selenium/configuration.yml
+tests/browser/.idea
+tests/browser/.bundle/*
+tests/browser/config/config.yml
+.api-testing.config.json
+
+# Doxygen
+docs/php
+docs/*.tmp
+# other docs
+/docs/data-bridge-storybook/
+/docs/tainted-ref-storybook/
+/docs/data-bridge-dist-size/
+/docs/tainted-ref-dist-size/
+
+# Editors
+*.kate-swp
+*~
+\#*#
+.#*
+.*.swp
+.project
+.buildpath
+.classpath
+.settings
+cscope.files
+cscope.out
+*.orig
+## NetBeans
+nbproject*
+project.index
+## Sublime
+sublime-*
+sftp-config.json
+
+# federated properties VM
+build/federated-properties/vagrant/.vagrant
+.vscode
