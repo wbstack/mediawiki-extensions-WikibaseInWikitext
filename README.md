@@ -10,9 +10,22 @@ This is currently intended for use on https://wbstack.com and might change witho
 
 - $wgWikibaseInWikitextSparqlDefaultUi - Location of the SPARQL UI to link to. Example: https://addshore-alpha.wiki.opencura.com/query
 
-**Usage in Wikitext:**
+## Installation
 
+Download the extension into your MediaWiki extensions directory.
+
+In your LocalSettings.php
+
+```php
+wfLoadExtension('WikibaseInWikitext');
+$wgWikibaseInWikitextSparqlDefaultUi = 'URL TO YOUR QUERY UI HERE';
 ```
+
+## Usage
+
+This extensions functionality can be used in wikitext
+
+```wikitext
 <sparql list="1" tryit="1">
 #Cats
 SELECT ?item ?itemLabel 
