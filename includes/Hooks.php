@@ -2,9 +2,9 @@
 
 namespace MediaWiki\Extension\WikibaseInWikitext;
 
-use SpecialPage;
 use Parser;
 use PPFrame;
+use SpecialPage;
 
 class Hooks {
 
@@ -16,7 +16,13 @@ class Hooks {
 		$parser->setHook( 'sparql', [ self::class, 'renderTagSparql' ] );
 	}
 
-	// Render <sparql>
+	/**
+	 * @param mixed $input
+	 * @param array $args
+	 * @param Parser $parser
+	 * @param PPFrame $frame
+	 * @return string
+	 */
 	public static function renderTagSparql( $input, array $args, Parser $parser, PPFrame $frame ) {
 		global $wgWikibaseInWikitextSparqlDefaultUi;
 
@@ -33,7 +39,7 @@ class Hooks {
 		if ( $shouldList ) {
 			$referencesEntities = [];
 			foreach ( explode( PHP_EOL, $input ) as $line ) {
-				if( strlen( $line ) === 0 || $line[0] === '#' ) {
+				if ( strlen( $line ) === 0 || $line[0] === '#' ) {
 					continue;
 				}
 				preg_match_all( '/([QP]\d+)/i', $line, $matches );
@@ -42,10 +48,10 @@ class Hooks {
 			$referencesEntities = array_unique( $referencesEntities );
 			sort( $referencesEntities );
 
-			if( $referencesEntities ) {
+			if ( $referencesEntities ) {
 				$output .= '<p>The following query uses these:</p>';
 				$output .= '<ul>';
-				foreach( $referencesEntities as $id ) {
+				foreach ( $referencesEntities as $id ) {
 					// TODO what if the entity is not on this local wiki?
 
 					$output .= '<li><a href="' .
@@ -58,15 +64,18 @@ class Hooks {
 			}
 		}
 
-		if( \ExtensionRegistry::getInstance()->isLoaded( 'SyntaxHighlight' ) ) {
-			$output .= $parser->recursiveTagParse( '<syntaxhighlight lang="sparql" >' . $input . '</syntaxhighlight>' );
+		if ( \ExtensionRegistry::getInstance()->isLoaded( 'SyntaxHighlight' ) ) {
+			$output .= $parser->recursiveTagParse(
+				'<syntaxhighlight lang="sparql" >' . $input . '</syntaxhighlight>'
+			);
 		} else {
 			$output .= '<pre>' . $input . '</pre>';
 		}
 		$output .= PHP_EOL;
 
 		if ( array_key_exists( 'tryit', $args ) ) {
-			$output .= '<a href="' . $sparqlUi . '#' . htmlentities( rawurlencode( trim( $input ) ) ) . '">Try it!</a>';
+			$output .= '<a href="' . $sparqlUi . '#' .
+				htmlentities( rawurlencode( trim( $input ) ) ) . '">Try it!</a>';
 			$output .= PHP_EOL;
 		}
 
