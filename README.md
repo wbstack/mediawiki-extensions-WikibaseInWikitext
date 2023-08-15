@@ -36,3 +36,7 @@ WHERE
 }
 </sparql>
 ```
+
+The option ```list="1"``` prepends a list of used Property (P-numbers) and Items (Q-numbers) to the presentation of the query.
+
+The option ```tryit="1"``` appends a link to execute the query on the local Wikibase based on the global ```$wgWikibaseInWikitextSparqlDefaultUi```
